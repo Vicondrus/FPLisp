@@ -1,0 +1,6 @@
+(DEFUN f ()
+  (LET*  ((x 2)
+         (foo #'(LAMBDA () (PRINT x)))
+         (bar #'(LAMBDA (x) (PRINT x) (FUNCALL foo))))
+        (FUNCALL bar 1))
+  (print x))
