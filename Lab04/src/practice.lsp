@@ -12,7 +12,6 @@
     (if (null l) 0 (+ 1 (my-length (cdr l)))))
 
 (defun nb-atoms(l)
-    (if (null l) 0 
-        (if (atom (car l)) (+ 1 (nb-atoms (cdr l))) (nb-atoms (car l)))))
+    (if (null l) 0
+    (+ (if (listp (car l)) (nb-atoms(car l)) 1) (nb-atoms (cdr l)))))
 
-(trace (my-length '(a i j (b c d) (c d e f) g k)))
