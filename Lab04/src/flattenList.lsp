@@ -18,3 +18,31 @@
                     (cdr ls))))
 )
 )
+
+(DEFUN flatten1 
+    (li)
+    (flattenAux li '())
+
+)
+
+(DEFUN flattenAux 
+    (li f) 
+    (if 
+        (NULL li) f
+
+        (if 
+            (LISTP 
+                (car li)) 
+
+            (flattenAux 
+                (cdr li)  
+                (append f 
+                    (flatten 
+                        (car li))))
+
+            (flattenAux 
+                (cdr li)
+                (append f (list (car li))))
+
+)
+))
