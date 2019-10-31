@@ -56,7 +56,31 @@
             (elimDupl 
                 (cdr li)) 
             (append 
-                (list (car li)) 
+                (list 
+                    (car li)) 
                 (elimDupl 
                     (cdr li)))))
+)
+
+(defun dropNth 
+    (n lst) 
+    (drpAux n lst '1)
+)
+
+(defun drpAux 
+    (n lst x) 
+    (if 
+        (null lst) nil 
+        (if 
+            (= 
+                (mod x n) 0) 
+            (drpAux n 
+                (cdr lst) 
+                (+ 1 x)) 
+            (append 
+                (list 
+                    (car lst)) 
+                (drpAux n 
+                    (cdr lst) 
+                    (+ 1 x)))))
 )
