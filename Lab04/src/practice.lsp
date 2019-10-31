@@ -84,3 +84,58 @@
 
 (defun flatten (ls)
     (mapcan #'(lambda (x) (if (listp x) (flatten x) (list x))) ls))
+
+(defun elimDupl (ls l)
+    (if (null ls) l (if (member (car ls) (cdr ls)) (elimDupl (cdr ls) l) (elimDupl (cdr ls) (append l (list (car ls)))))))
+
+(defun eliminateDuplicates (ls)
+    (elimDupl ls nil))
+
+(defun elimConsDupl (ls l)
+    (if (null ls) l (if (equal (car ls) (cadr ls)) (elimConsDupl (cdr ls) l) (elimConsDupl (cdr ls) (append l (list (car ls)))))))
+
+(defun elimConsecDuplicates(ls)
+    (elimConsDupl ls nil))
+
+(defun groupAux (ls l)
+    (if (null ls) l 
+    (if (equal (car ls) (cadr ls)) (groupAux (cdr ls) (append l (list (car ls)))) (append (list (append l (list (car ls)))) (group (cdr ls))))))
+
+(defun group (ls)
+    (groupAux ls nil))
+
+(defun rle (ls)
+    (mapcan #'(lambda (x) (list (list (car x) (length x)))) (group ls)))
+
+(defun dropNthEl(ls n l i)
+    (if (null ls) l
+    (if (equal (rem i n) 0) (dropNthEl (cdr ls) n l (+ i 1)) (dropNthEl (cdr ls) n (append l (list (car ls))) (+ i 1)))))
+
+(defun dropNthElement(ls n)
+    (dropNthEl ls n nil 1))
+;??????????????????????????????????
+(defun rotateK(ls k l)
+    (if (null ls) l
+    (if (>= k 0) (append (nthcdr k ls) (butlast ls (- (length ls) k))) (append (nthcdr (- (length ls) (- k)) ls) (butlast ls  (- k))))))
+
+(defun rotateKtoLeft(ls k)
+    (rotateK ls k nil))
+
+(defun prime (n d)
+    (if (<= n d) T
+    (if (equal (rem n d) 0) nil (prime n (+ d 1)))))
+
+(defun is-prime(n)
+    (prime n 2))
+
+(defun minTuples(ls m)
+    (if (null ls) m (minTuples (cdr ls) (min m (caar ls) (cdar ls)))))
+
+(defun findSmallest (ls)
+    (minTuples ls 9999))
+
+(defun makeList (n l)
+    (if (= n 0) l (append (makeList (floor n 10) l) (list (rem n 10)))))
+
+(defun listFromNb (n)
+    (makeList n nil))
